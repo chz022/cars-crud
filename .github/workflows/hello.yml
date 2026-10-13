@@ -1,0 +1,10 @@
+name: Hello Test
+on:
+  push:
+    branches: [main]
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Message
+        run: echo "Hello World, Actions is finally working!"
