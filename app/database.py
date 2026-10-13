@@ -56,6 +56,7 @@ def create_car(database_path: Path, car: CarInput) -> Car:
             "INSERT INTO cars (make, model, year, color) VALUES (?, ?, ?, ?)",
             (car.make, car.model, car.year, car.color),
         )
+        connection.commit()
         return Car(id=cursor.lastrowid, **car.model_dump())
 
 
@@ -65,6 +66,7 @@ def update_car(database_path: Path, car_id: int, car: CarInput) -> Car | None:
             "UPDATE cars SET make = ?, model = ?, year = ?, color = ? WHERE id = ?",
             (car.make, car.model, car.year, car.color, car_id),
         )
+        connection.commit()
         if cursor.rowcount == 0:
             return None
         return Car(id=car_id, **car.model_dump())
@@ -73,4 +75,5 @@ def update_car(database_path: Path, car_id: int, car: CarInput) -> Car | None:
 def delete_car(database_path: Path, car_id: int) -> bool:
     with connect(database_path) as connection:
         cursor = connection.execute("DELETE FROM cars WHERE id = ?", (car_id,))
+        connection.commit()
         return cursor.rowcount == 1
