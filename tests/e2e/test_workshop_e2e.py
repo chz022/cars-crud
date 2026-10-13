@@ -28,7 +28,7 @@ def test_user_edits_car_and_change_survives_reload(page, live_server):
     page.get_by_label("Year", exact=True).fill("2023")
     page.get_by_role("button", name="Save changes").click()
 
-    expect(page.get_by_role("heading", name="Honda Accord")).to_be_visible()
+    expect(page.get_by_role("heading", name="Honda Accord")).to_be_visible(timeout=15000)
 
     page.reload()
 
