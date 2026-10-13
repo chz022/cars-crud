@@ -30,7 +30,7 @@ jobs:
       - name: Run API tests
         run: python -m pytest tests/api -q
       - name: Run E2E tests
-        run: python -m pytest tests/e2e -q --screenshot=only-on-failure --tracing=retain-on-failure
+        run: python -m pytest tests/e2e -q
       - name: Upload Playwright Artifacts
         if: failure()
         uses: actions/upload-artifact@v4
